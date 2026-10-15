@@ -1,11 +1,9 @@
-# OpenPix PHP SDK
+# Woovi PHP SDK
 
-[![PHP version](https://img.shields.io/packagist/php-v/open-pix/php-sdk?color=%2325c2a0&logo=php&label=open-pix/php-sdk)](https://packagist.org/packages/open-pix/php-sdk)
-[![Download stats](https://img.shields.io/packagist/dt/open-pix/php-sdk?color=%2325c2a0&logo=php)](https://packagist.org/packages/open-pix/php-sdk)
-[![Latest release](https://img.shields.io/packagist/v/open-pix/php-sdk?label=latest+version)](https://packagist.org/packages/open-pix/php-sdk)
-[![CI status](https://img.shields.io/github/actions/workflow/status/Open-Pix/php-sdk/code-quality.yml?branch=main&label=tests&logo=github)](https://packagist.org/packages/open-pix/php-sdk)
+[![CI](https://github.com/OwnerPro-Software/woovi-php-sdk/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/OwnerPro-Software/woovi-php-sdk/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Welcome to the OpenPix PHP SDK! This SDK provides convenient access to the OpenPix REST API, allowing you to easily integrate payment services into your PHP applications.
+This SDK provides convenient access to the Woovi (OpenPix) REST API, allowing you to easily integrate payment services into your PHP applications.
 
 <p align="center">
   <img src="example.png" alt="usage example screenshot" width="700">
@@ -17,11 +15,14 @@ See [SDK documentation](https://developers.openpix.com.br/docs/sdk/php/sdk-php-w
 
 ## Installation
 
-Install the SDK with the necessary dependencies using Composer:
+The package is not published on Packagist; install it straight from GitHub with [Composer](https://getcomposer.org/), together with a PSR-18 HTTP client and PSR-17 factories:
 
 ```bash
-$ composer require open-pix/php-sdk guzzlehttp/guzzle guzzlehttp/psr7
+composer config repositories.woovi-php-sdk vcs https://github.com/OwnerPro-Software/woovi-php-sdk
+composer require ownerpro/woovi-php-sdk guzzlehttp/guzzle guzzlehttp/psr7
 ```
+
+It keeps the `OpenPix\PhpSdk` namespace of `open-pix/php-sdk`, so it conflicts with that package rather than installing alongside it.
 
 ## Basic usage
 
@@ -64,12 +65,10 @@ $result = $client->charges()->create($charge);
 echo $result["brCode"] . "\n";
 ```
 
-## Contributing
+## Fork & Credits
 
-If you have suggestions for how OpenPix PHP SDK could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
-
-For more, check out the [Contributing Guide](CONTRIBUTING.md).
+OwnerPro-Software maintains this package as an independent fork of [woovibr/php-sdk](https://github.com/woovibr/php-sdk) (`open-pix/php-sdk`), taken from its `main` after v1.1.4. Changes since the fork are listed in the [CHANGELOG](CHANGELOG.md).
 
 ## License
 
-OpenPix PHP SDK is distributed under the terms of the [MIT license](LICENSE).
+Distributed under the terms of the [MIT license](LICENSE).

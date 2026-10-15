@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.1.0](https://github.com/OwnerPro-Software/woovi-php-sdk/releases/tag/v0.1.0) (2026-10-15)
+
+First release as `ownerpro/woovi-php-sdk`, an independent fork of [woovibr/php-sdk](https://github.com/woovibr/php-sdk) (`open-pix/php-sdk`). Version numbers restart here. The sections below 0.1.0 are the upstream history; its 1.1.5 was never released.
+
+### Features
+
+* `Statements` resource: `$client->statements()->list()` on `/api/v1/statement`.
+* `ApiErrorException` carries the HTTP status code (`getStatusCode()`), the decoded response body (`getBody()`) and an optional previous throwable.
+* `UnreadableResponseException`, with `getStatusCode()`, is thrown when a response body cannot be decoded or is not an array, instead of a raw `JsonException` or `TypeError`.
+
+### Bug Fixes
+
+* An error status (>= 400) whose body has no `error` key raises `ApiErrorException` instead of being returned as data. Its message falls back to `message`, `description`, `errorMessage` and finally the status and reason phrase.
+* The message of an `error` object is read from `message`, then `description`, then the encoded object, without an undefined key error.
+* A 204 response returns an empty array.
+* `Paginator` no longer fails on a single page nor skips the last page of multi-page results.
+* `Paginator` falls back to `hasNextPage` when `pageInfo` has no `totalCount`, as in `/api/v1/transaction`.
+* The `$lastResult` parameter of the `Paginator` constructor is explicitly nullable, removing the PHP 8.4 deprecation.
+
+### Miscellaneous
+
+* The package is named `ownerpro/woovi-php-sdk` and conflicts with `open-pix/php-sdk`, whose `OpenPix\PhpSdk` namespace it keeps.
+* `Client::SDK_VERSION` stays `1.1.5`, the value sent in the `version` header.
+* GitHub Actions run `ci.yml` (tests, PHPStan and PHP CS Fixer) instead of the upstream workflows.
+
+
 ## [1.1.5](https://github.com/Open-Pix/php-sdk/compare/v1.1.4...v1.1.5) (2024-11-26)
 
 ### Partners Resource

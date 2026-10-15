@@ -1,8 +1,13 @@
 {
-    "name": "open-pix/php-sdk",
-    "description": "PHP OpenPix/Woovi SDK",
+    "name": "ownerpro/woovi-php-sdk",
+    "description": "PHP SDK for the Woovi (OpenPix) API",
     "type": "library",
     "license": "MIT",
+    "homepage": "https://github.com/OwnerPro-Software/woovi-php-sdk",
+    "support": {
+        "issues": "https://github.com/OwnerPro-Software/woovi-php-sdk/issues",
+        "source": "https://github.com/OwnerPro-Software/woovi-php-sdk"
+    },
     "autoload": {
         "psr-4": {
             "OpenPix\\PhpSdk\\": "src/"
@@ -22,6 +27,9 @@
         "psr/http-factory-implementation": "*",
         "psr/http-message": "^1.0 || ^2.0",
         "ext-json": "*"
+    },
+    "conflict": {
+        "open-pix/php-sdk": "*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.17",
