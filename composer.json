@@ -29,8 +29,8 @@
         "phpunit/phpunit": "^9.6"
     },
     "scripts": {
-        "cs:check": "php-cs-fixer fix . --dry-run --diff --format=txt --verbose",
-        "cs:fix": "php-cs-fixer fix .",
+        "cs:check": "php-cs-fixer fix --dry-run --diff --format=txt --verbose",
+        "cs:fix": "php-cs-fixer fix",
         "stan": "phpstan analyse",
         "test": "phpunit"
     },
