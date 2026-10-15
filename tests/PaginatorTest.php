@@ -151,15 +151,13 @@ final class PaginatorTest extends TestCase
         $iterations = 0;
         $processedTransactions = [];
 
-        foreach ($paginator as $result)
-        {
+        foreach ($paginator as $result) {
             $iterations++;
             $this->assertArrayHasKey('transactions', $result);
             $this->assertArrayHasKey('pageInfo', $result);
             $this->assertCount(7, $result['transactions']);
 
-            foreach ($result['transactions'] as $transaction)
-            {
+            foreach ($result['transactions'] as $transaction) {
                 $processedTransactions[] = $transaction;
             }
         }
@@ -230,13 +228,11 @@ final class PaginatorTest extends TestCase
         $iterations = 0;
         $allCharges = [];
 
-        foreach ($paginator as $result)
-        {
+        foreach ($paginator as $result) {
             $iterations++;
             $this->assertArrayHasKey('charges', $result);
 
-            foreach ($result['charges'] as $charge)
-            {
+            foreach ($result['charges'] as $charge) {
                 $allCharges[] = $charge;
             }
         }
@@ -276,8 +272,7 @@ final class PaginatorTest extends TestCase
         $paginator = new Paginator($requestTransportMock, $listRequestMock);
 
         $iterations = 0;
-        foreach ($paginator as $result)
-        {
+        foreach ($paginator as $result) {
             $iterations++;
             $this->assertArrayHasKey('items', $result);
             $this->assertEmpty($result['items']);
@@ -323,12 +318,10 @@ final class PaginatorTest extends TestCase
         $outerLoopExecuted = false;
         $transactionIds = [];
 
-        foreach ($paginator as $result)
-        {
+        foreach ($paginator as $result) {
             $outerLoopExecuted = true;
 
-            foreach ($result['transactions'] as $transaction)
-            {
+            foreach ($result['transactions'] as $transaction) {
                 $transactionIds[] = $transaction['id'];
             }
         }
@@ -457,11 +450,9 @@ final class PaginatorTest extends TestCase
         $iterations = 0;
         $allTransactions = [];
 
-        foreach ($paginator as $result)
-        {
+        foreach ($paginator as $result) {
             $iterations++;
-            foreach ($result['transactions'] as $transaction)
-            {
+            foreach ($result['transactions'] as $transaction) {
                 $allTransactions[] = $transaction;
             }
         }
