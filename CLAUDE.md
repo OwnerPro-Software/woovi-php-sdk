@@ -50,13 +50,17 @@ is the version: `composer.json` has no `version` field. Tags have a `v` prefix
    with the notes taken from that version's `CHANGELOG.md` section.
 
 Composer takes the package `name` from the default branch (`main`) for every
-branch and tag of a VCS repository, so a rename only takes effect on `main`.
+branch and tag of a VCS repository, so a rename takes effect only when it
+reaches `main`, and then applies to every branch at once.
 
 ## Branches and Upstream
 
 - `main` is the default branch and the only one that receives commits.
-- `pulsar` is the branch the pulsar API consumed as `dev-pulsar` before
-  `v0.1.0`; keep it while any pulsar branch still references it.
+- `pulsar` is the branch the pulsar API consumed as
+  `"open-pix/php-sdk": "dev-pulsar"` before `v0.1.0`. Since the rename reached
+  `main`, Composer lists it as `ownerpro/woovi-php-sdk dev-pulsar`, so that
+  requirement no longer resolves on `composer update`. Old locks still install:
+  they pin commit `ce5b43e`, which `main` contains.
 - `accounts`, `last-page-bug`, `partners`, `patch-1`, `patch-2`,
   `paymentApproval` and `statement` are heads of old pull requests to the
   upstream. Their changes are already in `main` or in the upstream.
