@@ -28,7 +28,7 @@ use TypeError;
  * ```
  *
  * @implements Iterator<int, array<array>>
- * @phpstan-type Pagination array{skip: int, limit: int, totalCount?: int, hasPreviousPage: bool, hasNextPage: bool}
+ * @phpstan-type Pagination array{skip: int, limit: int, totalCount?: int, hasPreviousPage: bool, hasNextPage?: bool}
  */
 class Paginator implements Iterator
 {
@@ -79,7 +79,7 @@ class Paginator implements Iterator
     public function __construct(
         RequestTransport $requestTransport,
         Request $listRequest,
-        array $lastResult = null
+        ?array $lastResult = null
     ) {
         $this->requestTransport = $requestTransport;
         $this->listRequest = $listRequest;

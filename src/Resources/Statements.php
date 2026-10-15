@@ -62,6 +62,9 @@ class Statements
             ->path("/api/v1/statement")
             ->queryParams($queryParams);
 
-        return $this->requestTransport->transport($request);
+        /** @var array<int, array<string, string|int>> $statements */
+        $statements = $this->requestTransport->transport($request);
+
+        return $statements;
     }
 }
