@@ -19,6 +19,17 @@ CI (`.github/workflows/ci.yml`) runs PHPUnit on PHP 7.3 to 8.5 and the
 linters on 8.5. The test jobs remove php-cs-fixer and phpstan before
 installing, because php-cs-fixer requires PHP >= 7.4.
 
+- `composer test -- --no-coverage` - run without xdebug/pcov, as CI does.
+- PHP 7.3 locally - in a scratch clone: `composer config platform.php 7.3.33`,
+  `composer remove --dev --no-update friendsofphp/php-cs-fixer phpstan/phpstan`,
+  `composer update`, then
+  `docker run --rm -v "$PWD:/app" -w /app php:7.3-cli vendor/bin/phpunit --no-coverage`.
+- Keep `.php-cs-fixer.dist.php` and call the fixer without a path: without a
+  config, php-cs-fixer 3.9x runs an init wizard that writes one and edits
+  `.gitignore`.
+- `composer validate` warns about `*` on `psr/http-*-implementation`: expected,
+  they are virtual packages provided by `php-http/discovery`.
+
 `composer.lock` is gitignored (library), so dependency updates never produce a
 lock commit. Never disable Composer's `block-insecure`: raise the constraint of
 the affected package instead.
@@ -45,13 +56,20 @@ is the version: `composer.json` has no `version` field. Tags have a `v` prefix
 (`v0.1.0`), like the other OwnerPro SDKs; consumers pin `0.1.0`.
 
 1. Add the release section to `CHANGELOG.md` and commit.
-2. `git tag -a vX.Y.Z -m "vX.Y.Z"` and `git push origin main vX.Y.Z`.
+2. `git push origin main` and wait for CI to pass; then
+   `git tag -a vX.Y.Z -m "vX.Y.Z"` and `git push origin vX.Y.Z`.
 3. `gh release create vX.Y.Z --verify-tag --title vX.Y.Z --notes-file <section>`,
    with the notes taken from that version's `CHANGELOG.md` section.
+4. Validate in the pulsar API on a copy of its `composer.json` and
+   `composer.lock`: bump the pin, run
+   `composer update ownerpro/woovi-php-sdk --no-install --no-scripts --no-plugins`,
+   check that the lock changes only this package, and run `composer audit --locked`.
+   Then hand the change to the API team; do not edit the pulsar repo from here.
 
 Composer takes the package `name` from the default branch (`main`) for every
 branch and tag of a VCS repository, so a rename takes effect only when it
-reaches `main`, and then applies to every branch at once.
+reaches `main`, and then applies to every branch at once. Migrate consumers
+before pushing a rename to `main`: the push breaks their `composer update` at once.
 
 ## Branches and Upstream
 
